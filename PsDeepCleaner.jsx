@@ -64,35 +64,17 @@ function clearDocumentAncestorsForAllLayers(doc) {
     }
 }
 
-function deleteDocumentAncestorsMetadataByInnerLayer() {
-    clearDocumentAncestorsForAllLayers(app.activeDocument);
-}
-
-function recurArtLayer(layers){
-
-    for(var i=0; i<layers.length; i++){
-        //alert(layers[i]+"--"+layers[i].kind)
-
-        if(layers[i].grouped!=false){
-            recurArtLayer(layers[i].linkedLayers);
-            alert(layers[i]+":"+layers[i].linkedLayers)
-        }else if(layers[i].kind=="LayerKind.SMARTOBJECT"){
-            alert(layers[i]+"--"+layers[i].kind)
-            deleteArtLayerAncestorsMetadata(layers[i])
-        }
-    }
-}
-
 var layerSetStr = "";
 var mainDocument = app.activeDocument;
 function start(){
     deleteDocumentAncestorsMetadata();
     alert("Clean finished.\n[doc name]:"+mainDocument.name+"\n[layer set]:"+layerSetStr);
 }
+
 try{
     if(confirm("Start to clean?")){
         start();
     }
 } catch (e) {
-    alert("Task clean fail.e="+e)
+    alert("Clean fail.e="+e)
 }
